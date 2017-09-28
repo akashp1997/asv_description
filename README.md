@@ -1,0 +1,1 @@
+This repository contains the URDF Robot Description of the SRM ASV 2016 Model for Robot State Publisher and Joint State Publisher.
