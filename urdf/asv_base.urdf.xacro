@@ -2,10 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="asv_description">
   <gazebo>
     <plugin name="ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/boat</robotNamespace>
+      <robotNamespace>/asv</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
+  <xacro:property name="PI" value="3.14159265359" />
    <link name="base_footprint">
     <inertial>
       <origin rpy="0 0 0" xyz="0.38789 0.59329 1.1865"/>
@@ -52,11 +53,13 @@
     </collision>
   </link>
 
-  <joint name="body_to_thruster_right" type="fixed">
+  <joint name="body_to_thruster_right" type="continuous">
     <origin rpy="1.5708 0 3.1416" xyz="0.74762 -1.335 0.37124"/>
     <parent link="base_footprint"/>
     <child link="thruster_right"/>
-    <axis xyz="0 0 0"/>
+    <axis xyz="0 1 0"/>
+       <limit effort="30" velocity="1.0" lower="-32000" upper="32000" />
+    <dynamics damping="0.1" friction="0.1" />
   </joint>
 
   <link name="thruster_left">
@@ -82,11 +85,13 @@
     </collision>
   </link>
 
-  <joint name="body_to_thruster_left" type="fixed">
+  <joint name="body_to_thruster_left" type="continuous">
     <origin rpy="1.5708 0 3.1416" xyz="0.027678 -1.335 0.37124"/>
     <parent link="base_footprint"/>
     <child link="thruster_left"/>
-    <axis xyz="0 0 0"/>
+    <axis xyz="0 1 0"/>
+       <limit effort="30" velocity="1.0" lower="-32000" upper="32000" />
+    <dynamics damping="0.1" friction="0.1" />
   </joint>
 
   <link name="top_body">
@@ -449,6 +454,7 @@
     <child link="mount"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="rs_232_port">
     <inertial>
       <origin rpy="0 0 0" xyz="6.911E-07 0.00015008 -0.0062931"/>
@@ -501,13 +507,34 @@
       </geometry>
     </collision>
   </link>
-  
+
   <joint name="mount_to_status_board" type="fixed">
     <origin rpy="0 0 0" xyz="-0.058 0.003 -0.032"/>
     <parent link="mount"/>
     <child link="status_board"/>
     <axis xyz="0 0 0"/>
   </joint>
+
+
+<transmission name="left_thruster_rotation">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="body_to_thruster_left">
+    <hardwareInterface>VelocityJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="left_thruster_actuator">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="right_thruster_rotation">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="body_to_thruster_right">
+    <hardwareInterface>VelocityJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="right_thruster_actuator">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
 
   <gazebo reference="base_footprint">
     <turnGravityOff>true</turnGravityOff>
@@ -524,13 +551,43 @@
   <gazebo reference="top_body">
     <turnGravityOff>true</turnGravityOff>
   </gazebo>
-    <gazebo reference="">
+    <gazebo reference="top_cover">
     <turnGravityOff>true</turnGravityOff>
   </gazebo>
-    <gazebo reference="">
+    <gazebo reference="sensor_pod">
     <turnGravityOff>true</turnGravityOff>
   </gazebo>
-    <gazebo reference="">
+    <gazebo reference="camera_garmin_mounts">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="garmin">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="camera">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="lidar">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="kill_switch_1">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="kill_switch_2">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="battery_1">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="battery_2">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="mount">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="rs_232_port">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="status_board">
     <turnGravityOff>true</turnGravityOff>
   </gazebo>
 
