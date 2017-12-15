@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="asv_description">
-  <link name="asv">
+  <gazebo>
+    <plugin name="ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/boat</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+   <link name="base_footprint">
     <inertial>
       <origin rpy="0 0 0" xyz="0.38789 0.59329 1.1865"/>
       <mass value="0.5331"/>
@@ -22,6 +28,7 @@
       </geometry>
     </collision>
   </link>
+
   <link name="thruster_right">
     <inertial>
       <origin rpy="0 0 0" xyz="-4.8522E-05 0.00051157 0.0095278"/>
@@ -44,12 +51,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="body_to_thruster_right" type="fixed">
     <origin rpy="1.5708 0 3.1416" xyz="0.74762 -1.335 0.37124"/>
-    <parent link="asv"/>
+    <parent link="base_footprint"/>
     <child link="thruster_right"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="thruster_left">
     <inertial>
       <origin rpy="0 0 0" xyz="-4.8521E-05 0.00051157 0.0095278"/>
@@ -72,12 +81,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="body_to_thruster_left" type="fixed">
     <origin rpy="1.5708 0 3.1416" xyz="0.027678 -1.335 0.37124"/>
-    <parent link="asv"/>
+    <parent link="base_footprint"/>
     <child link="thruster_left"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="top_body">
     <inertial>
       <origin rpy="0 0 0" xyz="-3.2569E-05 0.15165 0.037912"/>
@@ -100,12 +111,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="asv_to_top_body" type="fixed">
     <origin rpy="1.5708 0 0" xyz="0.38708 -1.0625 0.60681"/>
-    <parent link="asv"/>
+    <parent link="base_footprint"/>
     <child link="top_body"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="top_cover">
     <inertial>
       <origin xyz="2.7931E-06 -0.018976 0.0015" rpy="0 0 0" />
@@ -128,6 +141,7 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="top_body_to_cover" type="fixed">
     <origin xyz="0.00059952 0.19104 0.1763" rpy="-1.5708 0 0" />
     <parent link="top_body" />
@@ -135,6 +149,7 @@
     <axis xyz="0 0 1" />
     <limit lower="0" upper="0.2" effort="0" velocity="0" />
   </joint>
+
   <link name="sensor_pod">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.029193 -0.040604 -0.010551"/>
@@ -157,12 +172,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="top_to_sensor_pod" type="fixed">
     <origin rpy="0 1.5708 0" xyz="0 0.2547 -0.47015"/>
     <parent link="top_body"/>
     <child link="sensor_pod"/>
     <axis xyz="0 0 1"/>
   </joint>
+
   <link name="camera_garmin_mounts">
     <inertial>
       <origin rpy="0 0 0" xyz="0.0027436 0.024777 0.009305"/>
@@ -185,12 +202,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="pod_to_mounts" type="fixed">
     <origin rpy="0 -1.5708 0" xyz="-0.039919 0.069841 0"/>
     <parent link="sensor_pod"/>
     <child link="camera_garmin_mounts"/>
     <axis xyz="1 0 0"/>
   </joint>
+
   <link name="garmin">
     <inertial>
       <origin rpy="3.141592653589793 0 0" xyz="0 0.023342 0"/>
@@ -213,12 +232,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="mount_to_garmin" type="fixed">
     <origin rpy="3.141592653589793 -0.18516 0" xyz="0.0027436 0.026 0.059"/>
     <parent link="camera_garmin_mounts"/>
     <child link="garmin"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="camera">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.8934E-05 -0.010178 0.021487"/>
@@ -241,12 +262,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="mount_to_camera" type="fixed">
     <origin rpy="3.1167 0.020214 3.1416" xyz="0.002382 0.14006 -0.050118"/>
     <parent link="camera_garmin_mounts"/>
     <child link="camera"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="lidar">
     <inertial>
       <origin rpy="0 0 0" xyz="0.00017493 -0.020457 0.00018726"/>
@@ -269,12 +292,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="pod_to_lidar" type="fixed">
     <origin rpy="2.9322 -1.5708 0" xyz="0.12046 0.10702 0.0022421"/>
     <parent link="sensor_pod"/>
     <child link="lidar"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="kill_switch_2">
     <inertial>
       <origin rpy="0 0 0" xyz="0.21906 0.04363 0.013308"/>
@@ -297,12 +322,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="top_to_kill_2" type="fixed">
     <origin rpy="1.5708 0.5236 -1.5708" xyz="0.34081 0.37001 0.43324"/>
     <parent link="top_body"/>
     <child link="kill_switch_2"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="kill_switch_1">
     <inertial>
       <origin rpy="0 0 0" xyz="0.21906 0.04363 0.013308"/>
@@ -325,12 +352,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="top_to_kill_1" type="fixed">
     <origin rpy="-1.5708 0.5236 -1.5708" xyz="-0.34081 0.32638 0.50881"/>
     <parent link="top_body"/>
     <child link="kill_switch_1"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="battery_1">
     <inertial>
       <origin rpy="0 0 0" xyz="-5.5511E-17 0.0185 0"/>
@@ -353,12 +382,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="body_to_battery" type="fixed">
     <origin rpy="3.1416 0 0" xyz="0.38768 -1.5211 0.59834"/>
-    <parent link="asv"/>
+    <parent link="base_footprint"/>
     <child link="battery_1"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="battery_2">
     <inertial>
       <origin rpy="0 0 0" xyz="-5.5511E-17 0.0185 0"/>
@@ -381,12 +412,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="battery_1_to_battery_2" type="fixed">
     <origin rpy="0 0 0" xyz="0 -0.037 0"/>
     <parent link="battery_1"/>
     <child link="battery_2"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="mount">
     <inertial>
       <origin rpy="0 0 0" xyz="5.5511E-16 0.045908 -1.9984E-15"/>
@@ -409,9 +442,10 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="body_to_mount" type="fixed">
     <origin rpy="1.5708 0 0" xyz="0.38768 -1.2531 0.56334"/>
-    <parent link="asv"/>
+    <parent link="base_footprint"/>
     <child link="mount"/>
     <axis xyz="0 0 0"/>
   </joint>
@@ -437,12 +471,14 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="mount_to_port" type="fixed">
     <origin rpy="-1.5708 0 0" xyz="0 0.0134 0.13225"/>
     <parent link="mount"/>
     <child link="rs_232_port"/>
     <axis xyz="0 0 0"/>
   </joint>
+
   <link name="status_board">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.00056781 0.0042824 0.02751"/>
@@ -465,10 +501,38 @@
       </geometry>
     </collision>
   </link>
+  
   <joint name="mount_to_status_board" type="fixed">
     <origin rpy="0 0 0" xyz="-0.058 0.003 -0.032"/>
     <parent link="mount"/>
     <child link="status_board"/>
     <axis xyz="0 0 0"/>
   </joint>
+
+  <gazebo reference="base_footprint">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="thruster_right">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="thruster_left">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="top_body">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+    <gazebo reference="">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+
+
 </robot>
