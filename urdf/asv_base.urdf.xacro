@@ -7,6 +7,7 @@
     </plugin>
   </gazebo>
   <xacro:property name="PI" value="3.14159265359" />
+  <xacro:arg name="path" default="package://asv_description/meshes" />
    <link name="base_footprint">
     <inertial>
       <origin rpy="0 0 0" xyz="0.38789 0.59329 1.1865"/>
@@ -16,7 +17,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/asv.STL"/>
+        <mesh filename="$(arg path)/asv.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -25,7 +26,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/asv.STL"/>
+        <mesh filename="$(arg path)/asv.STL"/>
       </geometry>
     </collision>
   </link>
@@ -39,7 +40,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/thruster_right.STL"/>
+        <mesh filename="$(arg path)/thruster_right.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -48,7 +49,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/thruster_right.STL"/>
+        <mesh filename="$(arg path)/thruster_right.STL"/>
       </geometry>
     </collision>
   </link>
@@ -71,7 +72,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/thruster_left.STL"/>
+        <mesh filename="$(arg path)/thruster_left.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -80,7 +81,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/thruster_left.STL"/>
+        <mesh filename="$(arg path)/thruster_left.STL"/>
       </geometry>
     </collision>
   </link>
@@ -103,7 +104,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/top_body.STL"/>
+        <mesh filename="$(arg path)/top_body.STL"/>
       </geometry>
       <material name="">
         <color rgba="1 1 0.50196 1"/>
@@ -112,7 +113,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/top_body.STL"/>
+        <mesh filename="$(arg path)/top_body.STL"/>
       </geometry>
     </collision>
   </link>
@@ -133,7 +134,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://asv_description/meshes/top_cover.STL" />
+        <mesh filename="$(arg path)/top_cover.STL" />
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1" />
@@ -142,7 +143,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://asv_description/meshes/top_cover.STL" />
+        <mesh filename="$(arg path)/top_cover.STL" />
       </geometry>
     </collision>
   </link>
@@ -164,7 +165,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/sensor_pod.STL"/>
+        <mesh filename="$(arg path)/sensor_pod.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -173,7 +174,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/sensor_pod.STL"/>
+        <mesh filename="$(arg path)/sensor_pod.STL"/>
       </geometry>
     </collision>
   </link>
@@ -194,7 +195,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/camera_garmin_mounts.STL"/>
+        <mesh filename="$(arg path)/camera_garmin_mounts.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -203,7 +204,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/camera_garmin_mounts.STL"/>
+        <mesh filename="$(arg path)/camera_garmin_mounts.STL"/>
       </geometry>
     </collision>
   </link>
@@ -224,7 +225,7 @@
     <visual>
       <origin rpy="3.141592653589793 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/garmin.STL"/>
+        <mesh filename="$(arg path)/garmin.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -233,7 +234,7 @@
     <collision>
       <origin rpy="3.141592653589793 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/garmin.STL"/>
+        <mesh filename="$(arg path)/garmin.STL"/>
       </geometry>
     </collision>
   </link>
@@ -254,7 +255,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/camera.STL"/>
+        <mesh filename="$(arg path)/camera.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.019608 0.019608 0.019608 1"/>
@@ -263,7 +264,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/camera.STL"/>
+        <mesh filename="$(arg path)/camera.STL"/>
       </geometry>
     </collision>
   </link>
@@ -284,7 +285,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/lidar.STL"/>
+        <mesh filename="$(arg path)/lidar.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -293,7 +294,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/lidar.STL"/>
+        <mesh filename="$(arg path)/lidar.STL"/>
       </geometry>
     </collision>
   </link>
@@ -314,7 +315,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/kill_switch_2.STL"/>
+        <mesh filename="$(arg path)/kill_switch_2.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -323,7 +324,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/kill_switch_2.STL"/>
+        <mesh filename="$(arg path)/kill_switch_2.STL"/>
       </geometry>
     </collision>
   </link>
@@ -344,7 +345,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/kill_switch_1.STL"/>
+        <mesh filename="$(arg path)/kill_switch_1.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -353,7 +354,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/kill_switch_1.STL"/>
+        <mesh filename="$(arg path)/kill_switch_1.STL"/>
       </geometry>
     </collision>
   </link>
@@ -374,7 +375,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/battery_1.STL"/>
+        <mesh filename="$(arg path)/battery_1.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -383,7 +384,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/battery_1.STL"/>
+        <mesh filename="$(arg path)/battery_1.STL"/>
       </geometry>
     </collision>
   </link>
@@ -404,7 +405,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/battery_2.STL"/>
+        <mesh filename="$(arg path)/battery_2.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -413,7 +414,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/battery_2.STL"/>
+        <mesh filename="$(arg path)/battery_2.STL"/>
       </geometry>
     </collision>
   </link>
@@ -434,7 +435,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/mount.STL"/>
+        <mesh filename="$(arg path)/mount.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -443,7 +444,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/mount.STL"/>
+        <mesh filename="$(arg path)/mount.STL"/>
       </geometry>
     </collision>
   </link>
@@ -464,7 +465,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/rs_232_port.STL"/>
+        <mesh filename="$(arg path)/rs_232_port.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -473,7 +474,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/rs_232_port.STL"/>
+        <mesh filename="$(arg path)/rs_232_port.STL"/>
       </geometry>
     </collision>
   </link>
@@ -494,7 +495,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/status_board.STL"/>
+        <mesh filename="$(arg path)/status_board.STL"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -503,7 +504,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/status_board.STL"/>
+        <mesh filename="$(arg path)/status_board.STL"/>
       </geometry>
     </collision>
   </link>
