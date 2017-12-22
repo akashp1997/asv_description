@@ -529,22 +529,22 @@
 <transmission name="left_thruster_rotation">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="body_to_thruster_left">
-    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
   </joint>
   <actuator name="left_thruster_actuator">
     <mechanicalReduction>1</mechanicalReduction>
-    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <hardwareInterface>VelocityJointInterface</hardwareInterface>
   </actuator>
 </transmission>
 
 <transmission name="right_thruster_rotation">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="body_to_thruster_right">
-    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
   </joint>
   <actuator name="right_thruster_actuator">
     <mechanicalReduction>1</mechanicalReduction>
-    <hardwareInterface>EffortJointInterface</hardwareInterface>
+    <hardwareInterface>VelocityJointInterface</hardwareInterface>
   </actuator>
 </transmission>
 
