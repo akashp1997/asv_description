@@ -516,24 +516,35 @@
     <axis xyz="0 0 0"/>
   </joint>
 
+  <sensor name="lidar" update_rate="30">
+    <parent link="lidar" />
+    <origin xyz="0 0 0" rpy="0 0 0 " />
+    <ray>
+      <horizontal samples="100" resolution="1" min_angle="-1.5708" max_angle="1.5708" />
+      <vertical samples="1" resolution="1" min_angle="0" max_angle="0"/>
+    </ray>
+  </sensor>
+
 
 <transmission name="left_thruster_rotation">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="body_to_thruster_left">
-    <hardwareInterface>VelocityJointInterface</hardwareInterface>
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="left_thruster_actuator">
     <mechanicalReduction>1</mechanicalReduction>
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
   </actuator>
 </transmission>
 
 <transmission name="right_thruster_rotation">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="body_to_thruster_right">
-    <hardwareInterface>VelocityJointInterface</hardwareInterface>
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="right_thruster_actuator">
     <mechanicalReduction>1</mechanicalReduction>
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
   </actuator>
 </transmission>
 

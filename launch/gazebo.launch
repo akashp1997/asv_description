@@ -16,10 +16,18 @@
   </include>
 
    <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="asv_description" command="$(find xacro)/xacro.py '$(find asv_description)/urdf/asv_base.urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro '$(find asv_description)/urdf/asv_base.urdf.xacro' --inorder" />
 
-  <node name="asv_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model boat -param asv_description"/>
-  <!-- The need to integrate the ASV's join publishing here
+  <rosparam file="$(find asv_description)/config/asv_joints.yaml" command="load" />
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/asv" args="left_thruster_controller right_thruster_controller joint_state_controller" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+  <node name="asv_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model asv -param robot_description"/>
+
+  <!-- The need to integrate the ASV's joint publishing here
   <node
     name="fake_joint_calibration"
     pkg="rostopic"
