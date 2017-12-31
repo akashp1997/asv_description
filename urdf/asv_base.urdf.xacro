@@ -65,6 +65,20 @@
     <dynamics damping="0.1" friction="0.1" />
   </joint>
 
+    <link name="thruster_left_dummy">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-4.8522E-05 0.00051157 0.0095278"/>
+      <mass value="0.2183"/>
+      <inertia ixx="9.1096E-05" ixy="3.0619E-09" ixz="-1.6688E-07" iyy="9.0558E-05" iyz="1.2699E-06" izz="1.246E-06"/>
+    </inertial>
+  </link>
+
+  <joint name="thruster_left_fix" type="fixed">
+    <origin xyz="0 -0.95 1.7088" rpy="1.5708 0 0" />
+    <parent link="base_footprint"/>
+    <child link="thruster_left_dummy"/>
+  </joint>
+
   <link name="thruster_left">
     <inertial>
       <origin rpy="0 0 0" xyz="-4.8521E-05 0.00051157 0.0095278"/>
@@ -72,7 +86,7 @@
       <inertia ixx="9.1096E-05" ixy="3.0619E-09" ixz="-1.6688E-07" iyy="9.0558E-05" iyz="1.2699E-06" izz="1.246E-06"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 1.5708 1.5708" xyz="0 0 0"/>
       <geometry>
         <mesh filename="$(arg path)/thruster_left.STL"/>
       </geometry>
@@ -90,7 +104,7 @@
 
   <joint name="body_to_thruster_left" type="continuous">
     <origin rpy="1.5708 0 3.1416" xyz="0.027678 -1.335 0.37124"/>
-    <parent link="base_footprint"/>
+    <parent link="thruster_left_dummy"/>
     <child link="thruster_left"/>
     <axis xyz="0 1 0"/>
        <limit effort="30" velocity="1.0" lower="-32000" upper="32000" />
