@@ -11,7 +11,7 @@
    <link name="base_footprint">
     <inertial>
       <origin rpy="0 0 0" xyz="0.38789 0.59329 1.1865"/>
-      <mass value="0.5331"/>
+      <mass value="2.331"/>
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
     <visual>
@@ -58,7 +58,7 @@
     <origin rpy="1.5708 0 3.1416" xyz="0.74762 -1.335 0.37124"/>
     <parent link="base_footprint"/>
     <child link="thruster_right"/>
-    <axis xyz="0 1 0"/>
+    <axis xyz="0 -1 0"/>
        <limit effort="30" velocity="1.0" lower="-32000" upper="32000" />
     <dynamics damping="0.1" friction="0.1" />
   </joint>
@@ -159,7 +159,7 @@
   <link name="sensor_pod">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.029193 -0.040604 -0.010551"/>
-      <mass value="0.6495"/>
+      <mass value="0.06495"/>
       <inertia ixx="0.0016814" ixy="-1.4742E-07" ixz="-3.6677E-05" iyy="0.0016822" iyz="-6.7581E-06" izz="8.2722E-07"/>
     </inertial>
     <visual>
@@ -189,7 +189,7 @@
   <link name="camera_garmin_mounts">
     <inertial>
       <origin rpy="0 0 0" xyz="0.0027436 0.024777 0.009305"/>
-      <mass value="0.11757"/>
+      <mass value="0.011757"/>
       <inertia ixx="0.0001482" ixy="1.0861E-19" ixz="-3.2822E-19" iyy="0.00013357" iyz="4.4199E-05" izz="1.4626E-05"/>
     </inertial>
     <visual>
@@ -219,7 +219,7 @@
   <link name="garmin">
     <inertial>
       <origin rpy="3.141592653589793 0 0" xyz="0 0.023342 0"/>
-      <mass value="0.3356"/>
+      <mass value="0.03356"/>
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
     <visual>
@@ -249,7 +249,7 @@
   <link name="camera">
     <inertial>
       <origin rpy="0 0 0" xyz="-2.8934E-05 -0.010178 0.021487"/>
-      <mass value="0.041091"/>
+      <mass value="0.0041091"/>
       <inertia ixx="1.4847E-05" ixy="-3.2519E-08" ixz="-1.1631E-08" iyy="3.365E-06" iyz="-4.1204E-06" izz="1.1483E-05"/>
     </inertial>
     <visual>
@@ -309,7 +309,7 @@
   <link name="kill_switch_2">
     <inertial>
       <origin rpy="0 0 0" xyz="0.21906 0.04363 0.013308"/>
-      <mass value="0.048397"/>
+      <mass value="0.0048397"/>
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
     <visual>
@@ -339,7 +339,7 @@
   <link name="kill_switch_1">
     <inertial>
       <origin rpy="0 0 0" xyz="0.21906 0.04363 0.013308"/>
-      <mass value="0.048397"/>
+      <mass value="0.0048397"/>
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
     <visual>
@@ -529,22 +529,20 @@
 <transmission name="left_thruster_rotation">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="body_to_thruster_left">
-    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="left_thruster_actuator">
     <mechanicalReduction>1</mechanicalReduction>
-    <hardwareInterface>VelocityJointInterface</hardwareInterface>
   </actuator>
 </transmission>
 
 <transmission name="right_thruster_rotation">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="body_to_thruster_right">
-    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="right_thruster_actuator">
     <mechanicalReduction>1</mechanicalReduction>
-    <hardwareInterface>VelocityJointInterface</hardwareInterface>
   </actuator>
 </transmission>
 
