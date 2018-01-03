@@ -7,6 +7,12 @@
     </plugin>
   </gazebo>
   <xacro:property name="PI" value="3.14159265359" />
+  <xacro:property name="fiber">
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1"/>
+      </material>
+  </xacro:property>
+
   <xacro:arg name="path" default="package://asv_description/meshes" />
    <link name="base_footprint">
     <inertial>
@@ -19,9 +25,7 @@
       <geometry>
         <mesh filename="$(arg path)/asv.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
   </link>
 
@@ -50,9 +54,7 @@
       <geometry>
         <mesh filename="$(arg path)/thruster_right.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 1.5708 1.5708" xyz="0 0 0"/>
@@ -96,9 +98,7 @@
       <geometry>
         <mesh filename="$(arg path)/thruster_left.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -189,9 +189,7 @@
       <geometry>
         <mesh filename="$(arg path)/sensor_pod.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -219,9 +217,7 @@
       <geometry>
         <mesh filename="$(arg path)/camera_garmin_mounts.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -249,9 +245,7 @@
       <geometry>
         <mesh filename="$(arg path)/garmin.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="3.141592653589793 0 0" xyz="0 0 0"/>
@@ -309,9 +303,7 @@
       <geometry>
         <mesh filename="$(arg path)/lidar.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -339,9 +331,7 @@
       <geometry>
         <mesh filename="$(arg path)/kill_switch_2.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -369,9 +359,7 @@
       <geometry>
         <mesh filename="$(arg path)/kill_switch_1.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -399,9 +387,7 @@
       <geometry>
         <mesh filename="$(arg path)/battery_1.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -429,9 +415,7 @@
       <geometry>
         <mesh filename="$(arg path)/battery_2.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -459,9 +443,7 @@
       <geometry>
         <mesh filename="$(arg path)/mount.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -489,9 +471,7 @@
       <geometry>
         <mesh filename="$(arg path)/rs_232_port.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -519,9 +499,7 @@
       <geometry>
         <mesh filename="$(arg path)/status_board.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+<xacro:insert_block name="fiber" />
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -547,8 +525,10 @@
     </ray>
   </sensor>
 
+  
   <gazebo reference="lidar">
     <sensor name="lmssick" type="ray">
+      <always_on>1</always_on>
     <pose>0 0 0 0 0 0</pose>
     <visualize>false</visualize>
     <update_rate>50</update_rate>
@@ -579,7 +559,6 @@
   </sensor>
   </gazebo>
 
-
 <transmission name="left_thruster_rotation">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="body_to_thruster_left">
@@ -599,65 +578,6 @@
     <mechanicalReduction>1</mechanicalReduction>
   </actuator>
 </transmission>
-
-  <gazebo reference="base_footprint">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-
-  <gazebo reference="thruster_right">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-
-  <gazebo reference="thruster_right_dummy">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-
-  <gazebo reference="thruster_left">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-
-  <gazebo reference="top_body">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="top_cover">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="sensor_pod">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="camera_garmin_mounts">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="garmin">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="camera">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="lidar">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="kill_switch_1">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="kill_switch_2">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="battery_1">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="battery_2">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="mount">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="rs_232_port">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-    <gazebo reference="status_board">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
 
 
 </robot>
