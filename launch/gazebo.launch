@@ -4,11 +4,11 @@
   <arg name="paused" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
-  <!--<arg name="world" default="$(find asv_gazebo)/worlds/pond.world"/>-->
+  <arg name="world" default="$(find asv_gazebo)/worlds/pond.world"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <!--<arg name="world_name" value="$(arg world)"/>-->
+    <arg name="world_name" value="$(arg world)"/>
     <arg name="paused" value="$(arg paused)" />
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
@@ -35,6 +35,6 @@
 
   <!--Spawn the ASV Model based on the URDF Loaded onto the parameter server-->
 
-  <node name="asv_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model asv -param robot_description"/>
+  <node name="asv_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-physics ode -urdf -model asv -param robot_description"/>
 
 </launch>

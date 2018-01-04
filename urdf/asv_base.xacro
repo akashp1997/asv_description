@@ -516,43 +516,16 @@
     <axis xyz="0 0 0"/>
   </joint>
 
-  <sensor name="lidar" update_rate="50">
+  <sensor name="lidar" update_rate="50" type="laser">
     <parent link="lidar" />
-    <origin xyz="0 0 0" rpy="0 0 0 " />
-    <ray>
-      <horizontal samples="100" resolution="1" min_angle="-1.1781" max_angle="1.1781" />
-      <vertical samples="1" resolution="1" min_angle="0" max_angle="0"/>
-    </ray>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <ray />
   </sensor>
 
-  
-  <gazebo reference="lidar">
-    <sensor name="lmssick" type="ray">
-      <always_on>1</always_on>
-    <pose>0 0 0 0 0 0</pose>
-    <visualize>false</visualize>
+<gazebo reference="lidar">
+  <sensor name="lmssick" type="ray">
     <update_rate>50</update_rate>
-    <ray>
-      <scan>
-        <horizontal>
-          <samples>100</samples>
-          <resolution>1</resolution>
-          <min_angle>-1.1781</min_angle>
-          <max_angle>1.1781</max_angle>
-        </horizontal>
-      </scan>
-        <range>
-          <min>0.05</min>
-          <max>20</max>
-          <resolution>0.01</resolution>
-        </range>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.01</stddev>
-        </noise>
-    </ray>
-    <plugin name="sicklms" filename="libgazebo_ros_laser.so">
+    <plugin name="lidar" filename="libgazebo_ros_laser.so">
       <topicName>/asv/laser/scan</topicName>
       <frameName>lidar</frameName>
     </plugin>
