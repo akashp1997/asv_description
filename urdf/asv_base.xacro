@@ -1,22 +1,33 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="asv_description">
-  <gazebo>
-    <plugin name="ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/asv</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-    </plugin>
-  </gazebo>
-  <xacro:property name="PI" value="3.14159265359" />
-  <xacro:property name="fiber">
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
-  </xacro:property>
 
   <xacro:arg name="path" default="package://asv_description/meshes" />
-   <link name="base_footprint">
+
+    <link name="base_footprint">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.38789 0.59329 1.1865"/>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+  </link>
+  
+  <gazebo reference="base_footprint">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+  <joint name="base_footprint_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+   <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="2.331"/>
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
     </inertial>
@@ -39,7 +50,7 @@
 
   <joint name="thruster_right_fix" type="fixed">
     <origin xyz="0 -0.95 1.7088" rpy="1.5708 0 0" />
-    <parent link="base_footprint"/>
+    <parent link="base_link"/>
     <child link="thruster_right_dummy"/>
   </joint>
 
@@ -57,9 +68,9 @@
 <xacro:insert_block name="fiber" />
     </visual>
     <collision>
-      <origin rpy="0 1.5708 1.5708" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(arg path)/thruster_right.STL"/>
+        <cylinder radius="0.05" length="0.15" />
       </geometry>
     </collision>
   </link>
@@ -83,7 +94,7 @@
 
   <joint name="thruster_left_fix" type="fixed">
     <origin xyz="0 -0.95 1.7088" rpy="1.5708 0 0" />
-    <parent link="base_footprint"/>
+    <parent link="base_link"/>
     <child link="thruster_left_dummy"/>
   </joint>
 
@@ -132,17 +143,11 @@
         <color rgba="1 1 0.50196 1"/>
       </material>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/top_body.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="asv_to_top_body" type="fixed">
     <origin rpy="1.5708 0 0" xyz="0.38708 -1.0625 0.60681"/>
-    <parent link="base_footprint"/>
+    <parent link="base_link"/>
     <child link="top_body"/>
     <axis xyz="0 0 0"/>
   </joint>
@@ -162,12 +167,6 @@
         <color rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="$(arg path)/top_cover.STL" />
-      </geometry>
-    </collision>
   </link>
 
   <joint name="top_body_to_cover" type="fixed">
@@ -191,12 +190,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/sensor_pod.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="top_to_sensor_pod" type="fixed">
@@ -219,12 +212,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/camera_garmin_mounts.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="pod_to_mounts" type="fixed">
@@ -247,12 +234,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="3.141592653589793 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/garmin.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="mount_to_garmin" type="fixed">
@@ -277,12 +258,6 @@
         <color rgba="0.019608 0.019608 0.019608 1"/>
       </material>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/camera.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="mount_to_camera" type="fixed">
@@ -305,12 +280,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/lidar.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="pod_to_lidar" type="fixed">
@@ -333,12 +302,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/kill_switch_2.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="top_to_kill_2" type="fixed">
@@ -361,12 +324,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/kill_switch_1.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="top_to_kill_1" type="fixed">
@@ -389,17 +346,11 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/battery_1.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="body_to_battery" type="fixed">
     <origin rpy="3.1416 0 0" xyz="0.38768 -1.5211 0.59834"/>
-    <parent link="base_footprint"/>
+    <parent link="base_link"/>
     <child link="battery_1"/>
     <axis xyz="0 0 0"/>
   </joint>
@@ -417,12 +368,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/battery_2.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="battery_1_to_battery_2" type="fixed">
@@ -445,17 +390,11 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/mount.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="body_to_mount" type="fixed">
     <origin rpy="1.5708 0 0" xyz="0.38768 -1.2531 0.56334"/>
-    <parent link="base_footprint"/>
+    <parent link="base_link"/>
     <child link="mount"/>
     <axis xyz="0 0 0"/>
   </joint>
@@ -473,12 +412,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/rs_232_port.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="mount_to_port" type="fixed">
@@ -501,12 +434,6 @@
       </geometry>
 <xacro:insert_block name="fiber" />
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/status_board.STL"/>
-      </geometry>
-    </collision>
   </link>
 
   <joint name="mount_to_status_board" type="fixed">
@@ -516,41 +443,8 @@
     <axis xyz="0 0 0"/>
   </joint>
 
-  <sensor name="lidar" update_rate="50" type="laser">
-    <parent link="lidar" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <ray />
-  </sensor>
+<xacro:include filename="$(find asv_description)/urdf/asv_sensors.xacro" />
 
-<gazebo reference="lidar">
-  <sensor name="lmssick" type="ray">
-    <update_rate>50</update_rate>
-    <plugin name="lidar" filename="libgazebo_ros_laser.so">
-      <topicName>/asv/laser/scan</topicName>
-      <frameName>lidar</frameName>
-    </plugin>
-  </sensor>
-  </gazebo>
-
-<transmission name="left_thruster_rotation">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="body_to_thruster_left">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="left_thruster_actuator">
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
-
-<transmission name="right_thruster_rotation">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="body_to_thruster_right">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="right_thruster_actuator">
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
-
+<xacro:include filename="$(find asv_description)/urdf/asv_controllers.xacro" />
 
 </robot>
