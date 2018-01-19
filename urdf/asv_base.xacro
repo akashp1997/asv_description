@@ -41,20 +41,18 @@
       </geometry>
     </collision>
   </link>
-  <link name="thruster_left">
+<link name="thruster_left">
     <inertial>
-      <origin rpy="0 0 0" xyz="-5.8627E-05 0.00058333 0.0038275"/>
-      <mass value="0.18712"/>
-      <inertia ixx="3.3531E-05" ixy="2.291E-09" ixz="-1.0217E-07" iyy="3.2946E-05" iyz="8.185E-07" izz="1.1857E-06"/>
+      <origin rpy="0 0 0" xyz="0.00850178534589952 0.0511449724847095 -5.42946450400594E-05"/>
+      <mass value="0.201295638408416"/>
+      <inertia ixx="3.60508026375113E-05" ixy="-6.37790577446859E-06" ixz="-9.55155846597797E-08" iyy="3.38328251838062E-05" iyz="3.94192413473368E-08" izz="6.92827790100947E-05"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="$(arg path)/thruster_left.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+      <xacro:insert_block name="fiber"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -64,7 +62,7 @@
     </collision>
   </link>
   <joint name="body_to_thruster_left" type="fixed">
-    <origin rpy="3.1416 -0.034204 -3.1416" xyz="-0.36527 -0.3684 0.94656"/>
+    <origin rpy="0 1.5366 3.1416" xyz="-0.36509 -0.31305 0.95181"/>
     <parent link="base_link"/>
     <child link="thruster_left"/>
     <axis xyz="0 0 0"/>
@@ -98,20 +96,18 @@
     <axis xyz="0 0 0"/>
     <limit effort="0.098067" velocity="397.94"/>
   </joint>
-  <link name="thruster_right">
+    <link name="thruster_right">
     <inertial>
-      <origin rpy="0 0 0" xyz="-5.8645E-05 0.00058315 0.0038281"/>
-      <mass value="0.18712"/>
-      <inertia ixx="3.3529E-05" ixy="2.2892E-09" ixz="-1.0218E-07" iyy="3.2945E-05" iyz="8.1817E-07" izz="1.1857E-06"/>
+      <origin rpy="0 0 0" xyz="0.00850255972055614 0.051144652615246 -5.43497983066521E-05"/>
+      <mass value="0.201292014430916"/>
+      <inertia ixx="3.60548334017782E-05" ixy="-6.37582458259697E-06" ixz="-9.55850176393278E-08" iyy="3.38303930900005E-05" iyz="3.90578037394754E-08" izz="6.92844408354745E-05"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="$(arg path)/thruster_right.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+      <xacro:insert_block name="fiber"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -121,7 +117,7 @@
     </collision>
   </link>
   <joint name="body_to_thruster_right" type="fixed">
-    <origin rpy="3.1416 0.034204 3.1416" xyz="0.36311 -0.3684 0.94648"/>
+    <origin rpy="3.1416 1.5366 0" xyz="0.36293 -0.31305 0.95173"/>
     <parent link="base_link"/>
     <child link="thruster_right"/>
     <axis xyz="0 0 0"/>
