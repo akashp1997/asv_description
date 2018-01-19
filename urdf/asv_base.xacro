@@ -20,275 +20,403 @@
 		<child link="base_link"/>
 	</joint>
 	<link name="base_link">
-		<inertial>
-			<origin rpy="0 0 0" xyz="0.00081248 -0.14905 0.79199"/>
-			<mass value="5.331"/>
-			<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/base_link.STL"/>
-			</geometry>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.00081244 -0.14905 0.79199"/>
+      <mass value="5.331"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/base_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/base_link.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="thruster_left">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-5.8627E-05 0.00058333 0.0038275"/>
+      <mass value="0.18712"/>
+      <inertia ixx="3.3531E-05" ixy="2.291E-09" ixz="-1.0217E-07" iyy="3.2946E-05" iyz="8.185E-07" izz="1.1857E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/thruster_left.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/thruster_left.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="body_to_thruster_left" type="fixed">
+    <origin rpy="3.1416 -0.034204 -3.1416" xyz="-0.36527 -0.3684 0.94656"/>
+    <parent link="base_link"/>
+    <child link="thruster_left"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="left_prop">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-8.9802E-06 -7.9168E-05 1.1483E-06"/>
+      <mass value="0.0055557"/>
+      <inertia ixx="3.8077E-07" ixy="-2.1107E-10" ixz="-7.6917E-11" iyy="7.603E-07" iyz="2.5415E-11" izz="3.798E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/left_prop.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/left_prop.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_thruster_to_prop" type="continuous">
+    <origin rpy="-1.5708 -1.1015E-15 -1.8579" xyz="0 0 0.0101"/>
+    <parent link="thruster_left"/>
+    <child link="left_prop"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0.098067" velocity="397.94"/>
+  </joint>
+  <link name="thruster_right">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-5.8645E-05 0.00058315 0.0038281"/>
+      <mass value="0.18712"/>
+      <inertia ixx="3.3529E-05" ixy="2.2892E-09" ixz="-1.0218E-07" iyy="3.2945E-05" iyz="8.1817E-07" izz="1.1857E-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/thruster_right.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/thruster_right.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="body_to_thruster_right" type="fixed">
+    <origin rpy="3.1416 0.034204 3.1416" xyz="0.36311 -0.3684 0.94648"/>
+    <parent link="base_link"/>
+    <child link="thruster_right"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="right_prop">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-2.86418217365636E-07 -7.95554534813725E-05 -9.67893664827191E-07"/>
+      <mass value="0.00555700041550943"/>
+      <inertia ixx="3.80620473025844E-07" ixy="-1.02454560847702E-11" ixz="-1.5511326553023E-11" iyy="7.6093135544076E-07" iyz="-4.82655749375765E-11" izz="3.80581124486253E-07"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/right_prop.STL"/>
+      </geometry>
 			<xacro:insert_block name="fiber"/>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/base_link.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<link name="thruster_left">
-		<inertial>
-			<origin rpy="0 0 0" xyz="-0.35951 -0.36784 0.94138"/>
-			<mass value="0.19486"/>
-			<inertia ixx="3.3635E-05" ixy="3.3962E-09" ixz="1.273E-07" iyy="3.3048E-05" iyz="-8.343E-07" izz="1.1884E-06"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/thruster_left.STL"/>
-			</geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/right_prop.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_thruster_to_prop" type="continuous">
+    <origin rpy="-1.5708 -2.1511E-16 -0.97191" xyz="0 0 0.0101"/>
+    <parent link="thruster_right"/>
+    <child link="right_prop"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0.098067" velocity="397.94"/>
+  </joint>
+  <link name="top_body">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-3.25682499576208E-05 0.151653586569275 0.0379119183039041"/>
+      <mass value="1.62515309309757"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/top_body.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="1 1 0.501960784313725 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/top_body.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="body_to_top" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.13554 0.66802"/>
+    <parent link="base_link"/>
+    <child link="top_body"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="kill_switch_1">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.219059631281402 -0.010124320444473 0.0133075316586496"/>
+      <mass value="0.0483973134404422"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/kill_switch_1.STL"/>
+      </geometry>
 			<xacro:insert_block name="fiber"/>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/thruster_left.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="body_to_thruster_left" type="continuous">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="base_link"/>
-		<child link="thruster_left"/>
-		<axis xyz="0 0 0"/>
-		<!--<limit effort="30" lower="-32000" upper="32000" velocity="1.0"/>
-		<dynamics damping="0.1" friction="0.1"/>-->
-	</joint>
-	<link name="thruster_right">
-		<inertial>
-			<origin rpy="0 0 0" xyz="0.35962 -0.36784 0.94138"/>
-			<mass value="0.19487"/>
-			<inertia ixx="3.3633E-05" ixy="-8.3928E-09" ixz="-3.3111E-07" iyy="3.3048E-05" iyz="-8.3442E-07" izz="1.1913E-06"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/thruster_right.STL"/>
-			</geometry>
-			<material name="">
-				<color rgba="0.79216 0.81961 0.93333 1"/>
-			</material>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/thruster_right.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="body_to_thruster_right" type="continuous">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="base_link"/>
-		<child link="thruster_right"/>
-		<axis xyz="0 0 0"/>
-		<!--<limit effort="30" lower="-32000" upper="32000" velocity="1.0"/>
-		<dynamics damping="0.1" friction="0.1"/>-->
-	</joint>
-	<link name="top_body">
-		<inertial>
-			<origin rpy="0 0 0" xyz="9.7484E-05 0.024673 0.7522"/>
-			<mass value="2.1573"/>
-			<inertia ixx="0.016871" ixy="-8.9301E-06" ixz="-3.158E-05" iyy="0.026678" iyz="-0.0021608" izz="0.010957"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/top_body.STL"/>
-			</geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/kill_switch_1.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="top_to_kill_1" type="fixed">
+    <origin rpy="-1.57079632679491 0.523598775598297 -1.57079632679492" xyz="-0.340812154180953 0.353261240891155 0.462253612274062"/>
+    <parent link="top_body"/>
+    <child link="kill_switch_1"/>
+    <axis xyz="0 -1 0"/>
+  </joint>
+  <link name="kill_switch_2">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.219059630664039 0.0101292077961598 0.0133075317802777"/>
+      <mass value="0.0483973108019615"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/kill_switch_2.STL"/>
+      </geometry>
 			<xacro:insert_block name="fiber"/>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/top_body.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="base_to_top" type="fixed">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="base_link"/>
-		<child link="top_body"/>
-		<axis xyz="0 0 0"/>
-	</joint>
-	<link name="sensor_pod">
-		<inertial>
-			<origin rpy="0 0 0" xyz="-0.013295 0.078554 0.22706"/>
-			<mass value="0.6495"/>
-			<inertia ixx="8.2722E-07" ixy="-6.7581E-06" ixz="3.6677E-05" iyy="0.0016822" iyz="1.4742E-07" izz="0.0016814"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/sensor_pod.STL"/>
-			</geometry>
-			<material name="">
-				<color rgba="0.79216 0.81961 0.93333 1"/>
-			</material>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/sensor_pod.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="top_body_to_pod" type="fixed">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="top_body"/>
-		<child link="sensor_pod"/>
-		<axis xyz="0 0 0"/>
-	</joint>
-	<link name="lidar">
-		<inertial>
-			<origin rpy="0 0 0" xyz="0.007675 0.19969 0.070677"/>
-			<mass value="8.4876E-05"/>
-			<inertia ixx="7.4827E-08" ixy="1.2593E-09" ixz="-7.9614E-10" iyy="1.3889E-07" iyz="-1.1497E-08" izz="7.6608E-08"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/lidar.STL"/>
-			</geometry>
-			<material name="">
-				<color rgba="0.79216 0.81961 0.93333 1"/>
-			</material>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/lidar.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="pod_to_lidar" type="continuous">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="sensor_pod"/>
-		<child link="lidar"/>
-		<axis xyz="1 0 0"/>
-	</joint>
-	<link name="camera_mount">
-		<inertial>
-			<origin rpy="0 0 0" xyz="-1.1102E-16 0.22615 0.20972"/>
-			<mass value="0.05273"/>
-			<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/camera_mount.STL"/>
-			</geometry>
-			<material name="">
-				<color rgba="1 1 1 0.875"/>
-			</material>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/camera_mount.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="pod_to_camera_mount" type="fixed">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="sensor_pod"/>
-		<child link="camera_mount"/>
-		<axis xyz="0 0 0"/>
-	</joint>
-	<link name="camera">
-		<inertial>
-			<origin rpy="0 0 0" xyz="0.00010371 0.31918 0.16605"/>
-			<mass value="0.042277"/>
-			<inertia ixx="1.4944E-05" ixy="-4.7327E-08" ixz="5.3606E-08" iyy="3.1817E-06" iyz="3.9498E-06" izz="1.1765E-05"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/camera.STL"/>
-			</geometry>
-			<material name="">
-				<color rgba="0.019608 0.019608 0.019608 1"/>
-			</material>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/camera.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="mount_to_camera" type="fixed">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="camera_mount"/>
-		<child link="camera"/>
-		<axis xyz="0 0 0"/>
-	</joint>
-	<link name="garmin_mount">
-		<inertial>
-			<origin rpy="0 0 0" xyz="-5.5511E-17 0.20372 0.27749"/>
-			<mass value="0.064841"/>
-			<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/garmin_mount.STL"/>
-			</geometry>
-			<material name="">
-				<color rgba="0.79216 0.81961 0.93333 1"/>
-			</material>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/garmin_mount.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="pod_to_garmin_mount" type="fixed">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="sensor_pod"/>
-		<child link="garmin_mount"/>
-		<axis xyz="0 0 0"/>
-	</joint>
-	<link name="garmin">
-		<inertial>
-			<origin rpy="0 0 0" xyz="-1.1102E-16 0.23834 0.29679"/>
-			<mass value="0.3356"/>
-			<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-		</inertial>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/garmin.STL"/>
-			</geometry>
-			<material name="">
-				<color rgba="0.79216 0.81961 0.93333 1"/>
-			</material>
-		</visual>
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<mesh filename="$(arg path)/garmin.STL"/>
-			</geometry>
-		</collision>
-	</link>
-	<joint name="gps_to_mount" type="fixed">
-		<origin rpy="0 0 0" xyz="0 0 0"/>
-		<parent link="garmin_mount"/>
-		<child link="garmin"/>
-		<axis xyz="0 0 0"/>
-	</joint>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/kill_switch_2.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="top_to_kill_2" type="fixed">
+    <origin rpy="1.57079632679491 0.523598775598297 -1.57079632679487" xyz="0.340812154180953 0.35326368500279 0.462249378948562"/>
+    <parent link="top_body"/>
+    <child link="kill_switch_2"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <link name="top_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="2.79314393542007E-06 -0.0189761089795204 0.00150000093051006"/>
+      <mass value="0.435373108764808"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/top_cover.STL"/>
+      </geometry>
+			<xacro:insert_block name="fiber"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/top_cover.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="top_body_to_cover" type="fixed">
+    <origin rpy="-1.5707963267949 0 0" xyz="0.000599520701564327 0.191037972715501 0.176300071502315"/>
+    <parent link="top_body"/>
+    <child link="top_cover"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0" lower="0" upper="0.2" velocity="0"/>
+  </joint>
+  <link name="sensor_pod">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0313976042413414 -0.0171019085765789 -0.0725931149970314"/>
+      <mass value="0.778530048532095"/>
+      <inertia ixx="0.00394270195014207" ixy="0.000104602361203143" ixz="-1.73988961432922E-05" iyy="0.00191924764800365" iyz="-0.000209577496648679" izz="0.00245890039494815"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/sensor_pod.STL"/>
+      </geometry>
+			<xacro:insert_block name="fiber"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/sensor_pod.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="top_to_sensor_pod" type="fixed">
+    <origin rpy="0 1.5707963267949 0" xyz="0.0614995355101559 0.254696691832641 -0.470147742261126"/>
+    <parent link="top_body"/>
+    <child link="sensor_pod"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="lidar">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.000174928203101943 -0.0204571731166337 0.000187263559592976"/>
+      <mass value="8.48763259347086E-05"/>
+      <inertia ixx="7.48267577230671E-08" ixy="1.39265054848243E-09" ixz="-5.2849359905377E-10" iyy="1.4091009925665E-07" iyz="1.61252433167722E-09" izz="7.45921750478928E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/lidar.STL"/>
+      </geometry>
+			<xacro:insert_block name="fiber"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/lidar.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="pod_to_lidar" type="revolute">
+    <origin rpy="0 -1.5706 1.9266" xyz="0.096667 0.046463 -0.0605"/>
+    <parent link="sensor_pod"/>
+    <child link="lidar"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0.2941995" velocity="0.03"/>
+  </joint>
+  <link name="camera">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-1.58586727361243E-07 -4.97941692898518E-05 0.0251075668489152"/>
+      <mass value="0.0300315482388247"/>
+      <inertia ixx="1.93900252640794E-06" ixy="-7.07365393286784E-13" ixz="-5.25221232781319E-12" iyy="1.90209608253045E-06" iyz="-2.85841436174953E-08" izz="3.74182689051665E-08"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/camera.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.0196078431372549 0.0196078431372549 0.0196078431372549 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/camera.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="pod_to_camera" type="fixed">
+    <origin rpy="-0.024936 1.5506 2.7436E-14" xyz="0.010199 0.2099 -0.061862"/>
+    <parent link="sensor_pod"/>
+    <child link="camera"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="garmin">
+    <inertial>
+      <origin rpy="0 0 0" xyz="5.55111512312578E-17 0.0233424958570855 0"/>
+      <mass value="0.335604780394551"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/garmin.STL"/>
+      </geometry>
+			<xacro:insert_block name="fiber"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/garmin.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="top_to_garmin" type="fixed">
+    <origin rpy="0 -1.5063 0" xyz="-0.098919 0.095841 -0.0615"/>
+    <parent link="sensor_pod"/>
+    <child link="garmin"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="middle_hull">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00129847933709526 0.0190515669619089 0.106046184955132"/>
+      <mass value="0.826475643081175"/>
+      <inertia ixx="0.00603158871442966" ixy="-9.61917494174533E-06" ixz="0.000113625494626411" iyy="0.00579853155389705" iyz="-0.00121770546843011" izz="0.000344868861411541"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/middle_hull.STL"/>
+      </geometry>
+			<xacro:insert_block name="fiber"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/middle_hull.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="body_to_middle_hull" type="fixed">
+    <origin rpy="0 0 0" xyz="0.00059999 -0.182 0.62766"/>
+    <parent link="base_link"/>
+    <child link="middle_hull"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="battery">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 -3.59712259978551E-14 5.73985303731206E-14"/>
+      <mass value="0.9842"/>
+      <inertia ixx="0.000336842450001321" ixy="0" ixz="0" iyy="3.22500242914404E-27" iyz="1.04226517639091E-15" izz="0.000336842450001321"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/battery.STL"/>
+      </geometry>
+			<xacro:insert_block name="fiber"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="$(arg path)/battery.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="hull_to_battery" type="fixed">
+    <origin rpy="1.5708 0 0" xyz="0 0.038 0.49893"/>
+    <parent link="middle_hull"/>
+    <child link="battery"/>
+    <axis xyz="0 0 0"/>
+  </joint>
 </robot>
