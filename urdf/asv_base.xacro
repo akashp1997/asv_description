@@ -249,7 +249,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(arg path)/lidar.STL"/>
+        <mesh filename="package://lms1xx/meshes/sick-lms1xx.dae"/>
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
