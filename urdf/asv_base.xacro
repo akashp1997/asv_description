@@ -4,7 +4,7 @@
   <link name="base_footprint">
     <inertial>
       <mass value="0.0001"/>
-      <origin xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
     <visual>
@@ -15,389 +15,415 @@
     </visual>
   </link>
   <joint name="base_footprint_joint" type="fixed">
-    <origin rpy="0 0 -${PI/2}" xyz="0 0 0"/>
+    <origin rpy="${PI/2-PI/24} 0 ${-PI/2}" xyz="0 0 0"/>
     <parent link="base_footprint"/>
     <child link="base_link"/>
   </joint>
   <link name="base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="2.331"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <mass value="8.3305"/>
+      <inertia ixx="0.48818" ixy="-1.0031E-06" ixz="-0.00052597" iyy="0.77995" iyz="0.060345" izz="0.40032"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(arg path)/asv.STL"/>
-      </geometry>
-      <xacro:insert_block name="fiber"/>
-    </visual>
-  </link>
-  <link name="thruster_right_dummy">
-    <inertial>
-      <origin rpy="0 0 0" xyz="-4.8522E-05 0.00051157 0.0095278"/>
-      <mass value="0.2183"/>
-      <inertia ixx="9.1096E-05" ixy="3.0619E-09" ixz="-1.6688E-07" iyy="9.0558E-05" iyz="1.2699E-06" izz="1.246E-06"/>
-    </inertial>
-  </link>
-  <joint name="thruster_right_fix" type="fixed">
-    <origin rpy="1.5708 0 0" xyz="0 -0.95 1.7088"/>
-    <parent link="base_link"/>
-    <child link="thruster_right_dummy"/>
-  </joint>
-  <link name="thruster_right">
-    <inertial>
-      <origin rpy="0 0 0" xyz="-4.8522E-05 0.00051157 0.0095278"/>
-      <mass value="0.2183"/>
-      <inertia ixx="9.1096E-05" ixy="3.0619E-09" ixz="-1.6688E-07" iyy="9.0558E-05" iyz="1.2699E-06" izz="1.246E-06"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 1.5708 1.5708" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/thruster_right.STL"/>
+        <mesh filename="package://asv_description/meshes/base_link.STL"/>
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.15" radius="0.05"/>
+        <mesh filename="package://asv_description/meshes/base_link.STL"/>
       </geometry>
     </collision>
   </link>
-  <joint name="body_to_thruster_right" type="fixed">
-    <origin rpy="1.5708 0 3.1416" xyz="0.74762 -1.335 0.37124"/>
-    <parent link="thruster_right_dummy"/>
-    <child link="thruster_right"/>
-    <axis xyz="0 -1 0"/>
-    <limit effort="30" lower="-32000" upper="32000" velocity="1.0"/>
-    <dynamics damping="0.1" friction="0.1"/>
-  </joint>
-  <link name="thruster_left_dummy">
-    <inertial>
-      <origin rpy="0 0 0" xyz="-4.8522E-05 0.00051157 0.0095278"/>
-      <mass value="0.2183"/>
-      <inertia ixx="9.1096E-05" ixy="3.0619E-09" ixz="-1.6688E-07" iyy="9.0558E-05" iyz="1.2699E-06" izz="1.246E-06"/>
-    </inertial>
-  </link>
-  <joint name="thruster_left_fix" type="fixed">
-    <origin rpy="1.5708 0 0" xyz="0 -0.95 1.7088"/>
-    <parent link="base_link"/>
-    <child link="thruster_left_dummy"/>
-  </joint>
   <link name="thruster_left">
     <inertial>
-      <origin rpy="0 0 0" xyz="-4.8521E-05 0.00051157 0.0095278"/>
-      <mass value="0.2183"/>
-      <inertia ixx="9.1096E-05" ixy="3.0619E-09" ixz="-1.6688E-07" iyy="9.0558E-05" iyz="1.2699E-06" izz="1.246E-06"/>
+      <origin xyz="-5.6771E-05 0.0040313 0.0046012" rpy="0 0 0" />
+      <mass value="0.344"/>
+      <inertia ixx="0.00021485" ixy="3.2191E-08" ixz="-2.6839E-07" iyy="0.00017649" iyz="-5.6241E-06" izz="0.00021842" />
     </inertial>
     <visual>
-      <origin rpy="0 1.5708 1.5708" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(arg path)/thruster_left.STL"/>
+        <mesh filename="package://asv_description/meshes/thruster_left.STL"/>
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(arg path)/thruster_left.STL"/>
+        <mesh filename="package://asv_description/meshes/thruster_left.STL"/>
       </geometry>
     </collision>
   </link>
   <joint name="body_to_thruster_left" type="fixed">
-    <origin rpy="1.5708 0 3.1416" xyz="0.027678 -1.335 0.37124"/>
-    <parent link="thruster_left_dummy"/>
+    <origin xyz="-0.36142 -0.26516 0.17933" rpy="0.13754 -0.00034105 -4.7207E-05" />
+    <parent link="base_link"/>
     <child link="thruster_left"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="30" lower="-32000" upper="32000" velocity="1.0"/>
-    <dynamics damping="0.1" friction="0.1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <link name="thruster_right">
+    <inertial> 
+      <origin xyz="0.009147 0.051319 5.6777E-05" rpy="0 0 0" />
+      <mass value="0.344"/>
+      <inertia ixx="0.00021842" ixy="-5.6243E-06" ixz="-2.6839E-07" iyy="0.00017649" iyz="3.2223E-08" izz="0.00021485" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://asv_description/meshes/thruster_right.STL"/>
+      </geometry>
+      <xacro:insert_block name="fiber"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://asv_description/meshes/thruster_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="body_to_thruster_right" type="fixed">
+    <origin xyz="0.36046 -0.21222 0.20053" rpy="-1.5683 1.4333 1.5733" />
+    <parent link="base_link"/>
+    <child link="thruster_right"/>
+    <axis xyz="0 0 0"/>
   </joint>
   <link name="top_body">
     <inertial>
-      <origin rpy="0 0 0" xyz="-3.2569E-05 0.15165 0.037912"/>
-      <mass value="1.6252"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin xyz="-2.8917E-05 0.15165 0.037907" rpy="0 0 0" />
+      <mass value="2.25" />
+      <inertia ixx="0.15001" ixy="-2.6283E-07" ixz="-1.8435E-05" iyy="0.24012" iyz="-0.0048082" izz="0.091887" />
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(arg path)/top_body.STL"/>
+        <mesh filename="package://asv_description/meshes/top_body.STL"/>
       </geometry>
-      <material name="">
-        <color rgba="1 1 0.50196 1"/>
-      </material>
+      <xacro:insert_block name="fiber"/>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/top_body.STL" />
+      </geometry>
+    </collision>
   </link>
-  <joint name="asv_to_top_body" type="fixed">
-    <origin rpy="1.5708 0 0" xyz="0.38708 -1.0625 0.60681"/>
-    <parent link="base_link"/>
-    <child link="top_body"/>
-    <axis xyz="0 0 0"/>
+  <joint name="base_to_top_body" type="fixed">
+    <origin xyz="-0.00047785 0.0019807 -0.052277" rpy="0.13754 0 0" />
+    <parent link="base_link" />
+    <child link="top_body" />
+    <axis xyz="0 0 0" />
   </joint>
   <link name="top_cover">
     <inertial>
-      <origin rpy="0 0 0" xyz="2.7931E-06 -0.018976 0.0015"/>
-      <mass value="0.43537"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin xyz="2.7931E-06 -0.018976 0.0015" rpy="0 0 0" />
+      <mass value="0.25" />
+      <inertia ixx="0.0040673" ixy="7.734E-08" ixz="9.5757E-11" iyy="0.0069646" iyz="1.5184E-12" izz="0.011031" />
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/top_cover.STL"/>
+        <mesh filename="package://asv_description/meshes/top_cover.STL" />
       </geometry>
-      <material name="">
-        <color rgba="0.79216 0.81961 0.93333 1"/>
-      </material>
+      <xacro:insert_block name="fiber"/>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/top_cover.STL" />
+      </geometry>
+    </collision>
   </link>
   <joint name="top_body_to_cover" type="fixed">
-    <origin rpy="-1.5708 0 0" xyz="0.00059952 0.19104 0.1763"/>
-    <parent link="top_body"/>
-    <child link="top_cover"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="0" lower="0" upper="0.2" velocity="0"/>
+    <origin xyz="0.00059952 0.19104 0.1763" rpy="-1.5708 0 0" />
+    <parent link="top_body" />
+    <child link="top_cover" />
+    <axis xyz="0 0 0" />
   </joint>
   <link name="sensor_pod">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.029193 -0.040604 -0.010551"/>
-      <mass value="0.6495"/>
-      <inertia ixx="0.0016814" ixy="-1.4742E-07" ixz="-3.6677E-05" iyy="0.0016822" iyz="-6.7581E-06" izz="8.2722E-07"/>
+      <origin xyz="-0.0313270686904997 -0.0167936992565718 0.0494228812013066" rpy="0 0 0" />
+      <mass value="0.779617603716845" />
+      <inertia ixx="0.00751775076858336" ixy="-0.00203584639790496" ixz="2.31262492961429E-05" iyy="0.00600882428399423" iyz="-0.000131398653996354" izz="0.00961028438611889" />
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/sensor_pod.STL"/>
+        <mesh filename="package://asv_description/meshes/sensor_pod.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
+      <material name="">
+        <color rgba="1 1 1 0.875" />
+      </material>
     </visual>
-  </link>
-  <joint name="top_to_sensor_pod" type="fixed">
-    <origin rpy="0 1.5708 0" xyz="0 0.2547 -0.47015"/>
-    <parent link="top_body"/>
-    <child link="sensor_pod"/>
-    <axis xyz="0 0 1"/>
-  </joint>
-  <link name="camera_garmin_mounts">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.0027436 0.024777 0.009305"/>
-      <mass value="0.11757"/>
-      <inertia ixx="0.0001482" ixy="1.0861E-19" ixz="-3.2822E-19" iyy="0.00013357" iyz="4.4199E-05" izz="1.4626E-05"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/camera_garmin_mounts.STL"/>
+        <mesh filename="package://asv_description/meshes/sensor_pod.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
-    </visual>
+    </collision>
   </link>
-  <joint name="pod_to_mounts" type="fixed">
-    <origin rpy="0 -1.5708 0" xyz="-0.039919 0.069841 0"/>
-    <parent link="sensor_pod"/>
-    <child link="camera_garmin_mounts"/>
-    <axis xyz="1 0 0"/>
+    <joint name="top_to_sensor_pod" type="fixed">
+    <origin xyz="-0.0605 0.2547 -0.47015" rpy="0 1.5708 0" />
+    <parent link="top_body" />
+    <child link="sensor_pod" />
+    <axis xyz="0 0 0" />
   </joint>
+  <link name="lidar">
+      <inertial>
+        <mass value="1.1" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="${0.0833333 * 1.1 * (0.102*0.102 + 0.152*0.152)}" ixy="0.0" ixz="0.0"
+          iyy="${0.0833333 * 1.1 * (0.105*0.105 + 0.152*0.152)}" iyz="0.0"
+          izz="${0.0833333 * 1.1 * (0.105*0.105 + 0.102*0.102)}" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <!-- Origin of this mesh is the focal point of the LIDAR. -->
+          <mesh filename="package://lms1xx/meshes/sick-lms1xx.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 -0.05" rpy="0 0 0" />
+        <geometry>
+          <box size="0.105 0.1 0.1" />
+        </geometry>
+      </collision>
+  </link>
+  <joint name="pod_to_lidar" type="fixed">
+    <origin xyz="0.12796 0.027079 0.0615" rpy="-0.029295 -1.5706 3.0041" />
+    <parent link="sensor_pod" />
+    <child link="lidar" />
+    <axis xyz="1 0 0.00016955" />
+  </joint>
+
   <link name="garmin">
     <inertial>
-      <origin rpy="3.141592653589793 0 0" xyz="0 0.023342 0"/>
-      <mass value="0.3356"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin xyz="-2.22044604925031E-16 0.0233424958570854 5.55111512312578E-17" rpy="0 0 0" />
+      <mass value="0.335604780394551" />
+      <inertia ixx="0.000247340723745472" ixy="-3.18484388167617E-19" ixz="0" iyy="0.000369020311277321" iyz="2.45639554703747E-20" izz="0.000247340723745472" />
     </inertial>
     <visual>
-      <origin rpy="3.141592653589793 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/garmin.STL"/>
+        <mesh filename="package://asv_description/meshes/garmin.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/garmin.STL" />
+      </geometry>
+    </collision>
   </link>
-  <joint name="mount_to_garmin" type="fixed">
-    <origin rpy="3.141592653589793 -0.18516 0" xyz="0.0027436 0.026 0.059"/>
-    <parent link="camera_garmin_mounts"/>
-    <child link="garmin"/>
-    <axis xyz="0 0 0"/>
+  <joint name="top_to_garmin" type="fixed">
+    <origin xyz="-0.098919 0.095841 0.0605" rpy="0 -0.25896 3.7327E-16" />
+    <parent link="sensor_pod" />
+    <child link="garmin" />
+    <axis xyz="0 1 0" />
   </joint>
   <link name="camera">
     <inertial>
-      <origin rpy="0 0 0" xyz="-2.8934E-05 -0.010178 0.021487"/>
-      <mass value="0.041091"/>
-      <inertia ixx="1.4847E-05" ixy="-3.2519E-08" ixz="-1.1631E-08" iyy="3.365E-06" iyz="-4.1204E-06" izz="1.1483E-05"/>
+      <origin xyz="-1.73796464830733E-07 -4.98009879517092E-05 0.0251075786825743" rpy="0 0 0" />
+      <mass value="0.0300315971398498" />
+      <inertia ixx="8.07299224934798E-06" ixy="-8.07587604579709E-11" ixz="-1.57731359125827E-11" iyy="7.99310014596547E-06" iyz="-4.66161912662743E-08" izz="2.81279837645544E-06" />
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/camera.STL"/>
+        <mesh filename="package://asv_description/meshes/camera.STL" />
       </geometry>
       <material name="">
-        <color rgba="0.019608 0.019608 0.019608 1"/>
+        <color rgba="0.0196078431372549 0.0196078431372549 0.0196078431372549 1" />
       </material>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/camera.STL" />
+      </geometry>
+    </collision>
   </link>
-  <joint name="mount_to_camera" type="fixed">
-    <origin rpy="3.1167 0.020214 3.1416" xyz="0.002382 0.14006 -0.050118"/>
-    <parent link="camera_garmin_mounts"/>
-    <child link="camera"/>
-    <axis xyz="0 0 0"/>
+  <joint name="pod_to_camera" type="fixed">
+    <origin xyz="0.010199 0.2099 0.060138" rpy="-0.024936 1.5506 1.7851E-14" />
+    <parent link="sensor_pod" />
+    <child link="camera" />
+    <axis xyz="0 0 0" />
   </joint>
-  <link name="lidar">
+
+  <link name="middle_hull">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.00017493 -0.020457 0.00018726"/>
-      <mass value="8.4876E-05"/>
-      <inertia ixx="7.4827E-08" ixy="1.3927E-09" ixz="-5.2849E-10" iyy="1.4091E-07" iyz="1.6125E-09" izz="7.4592E-08"/>
+      <origin xyz="-7.0577027015406E-05 0.00726239263966022 0.0511096210572804" rpy="0 0 0" />
+      <mass value="0.575105324122937" />
+      <inertia ixx="0.0473784082956317" ixy="2.8682973622882E-08" ixz="-5.19102228124097E-05" iyy="0.0503136291732273" iyz="-0.000595967522265734" izz="0.00356731462662937" />
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/lidar.STL"/>
+        <mesh filename="package://asv_description/meshes/middle_hull.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
     </visual>
-  </link>
-  <joint name="pod_to_lidar" type="fixed">
-    <origin rpy="2.9322 -1.5708 0" xyz="0.12046 0.10702 0.0022421"/>
-    <parent link="sensor_pod"/>
-    <child link="lidar"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="kill_switch_2">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.21906 0.04363 0.013308"/>
-      <mass value="0.048397"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/kill_switch_2.STL"/>
+        <mesh filename="package://asv_description/meshes/middle_hull.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
-    </visual>
+    </collision>
   </link>
-  <joint name="top_to_kill_2" type="fixed">
-    <origin rpy="1.5708 0.5236 -1.5708" xyz="0.34081 0.37001 0.43324"/>
-    <parent link="top_body"/>
-    <child link="kill_switch_2"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="kill_switch_1">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.21906 0.04363 0.013308"/>
-      <mass value="0.048397"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/kill_switch_1.STL"/>
-      </geometry>
-      <xacro:insert_block name="fiber"/>
-    </visual>
-  </link>
-  <joint name="top_to_kill_1" type="fixed">
-    <origin rpy="-1.5708 0.5236 -1.5708" xyz="-0.34081 0.32638 0.50881"/>
-    <parent link="top_body"/>
-    <child link="kill_switch_1"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="battery_1">
-    <inertial>
-      <origin rpy="0 0 0" xyz="-5.5511E-17 0.0185 0"/>
-      <mass value="0.4921"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/battery_1.STL"/>
-      </geometry>
-      <xacro:insert_block name="fiber"/>
-    </visual>
-  </link>
-  <joint name="body_to_battery" type="fixed">
-    <origin rpy="3.1416 0 0" xyz="0.38768 -1.5211 0.59834"/>
-    <parent link="base_link"/>
-    <child link="battery_1"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="battery_2">
-    <inertial>
-      <origin rpy="0 0 0" xyz="-5.5511E-17 0.0185 0"/>
-      <mass value="0.4921"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="$(arg path)/battery_2.STL"/>
-      </geometry>
-      <xacro:insert_block name="fiber"/>
-    </visual>
-  </link>
-  <joint name="battery_1_to_battery_2" type="fixed">
-    <origin rpy="0 0 0" xyz="0 -0.037 0"/>
-    <parent link="battery_1"/>
-    <child link="battery_2"/>
-    <axis xyz="0 0 0"/>
+  <joint name="base_to_middle_hull" type="fixed">
+    <origin xyz="0.0001217 -0.038509 -0.098623" rpy="0.13754 0 0" />
+    <parent link="base_link" />
+    <child link="middle_hull" />
+    <axis xyz="0 0 0" />
   </joint>
   <link name="mount">
     <inertial>
-      <origin rpy="0 0 0" xyz="5.5511E-16 0.045908 -1.9984E-15"/>
-      <mass value="0.23261"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin xyz="7.7715611723761E-16 0.0459075866251255 -1.0547118733939E-15" rpy="0 0 0" />
+      <mass value="0.232606589999998" />
+      <inertia ixx="0.00435238805493663" ixy="-2.54722788403769E-18" ixz="-1.01800707736603E-18" iyy="0.00376415843293126" iyz="1.96240593219876E-17" izz="0.00186099035250626" />
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/mount.STL"/>
+        <mesh filename="package://asv_description/meshes/mount.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/mount.STL" />
+      </geometry>
+    </collision>
   </link>
-  <joint name="body_to_mount" type="fixed">
-    <origin rpy="1.5708 0 0" xyz="0.38768 -1.2531 0.56334"/>
-    <parent link="base_link"/>
-    <child link="mount"/>
-    <axis xyz="0 0 0"/>
+  <joint name="hull_to_mount" type="fixed">
+    <origin xyz="0 0.003 0.23093" rpy="-1.9429E-16 0 0" />
+    <parent link="middle_hull" />
+    <child link="mount" />
+    <axis xyz="0 0 0" />
   </joint>
-  <link name="rs_232_port">
+
+  <link name="electronics">
     <inertial>
-      <origin rpy="0 0 0" xyz="6.911E-07 0.00015008 -0.0062931"/>
-      <mass value="0.020002"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin xyz="-0.000408645492943005 0.00429430260895264 0.0283247121981138" rpy="0 0 0" />
+      <mass value="0.0167635286879548" />
+      <inertia ixx="1.20668083937559E-05" ixy="6.3655155776584E-08" ixz="1.12301147803476E-07" iyy="1.34590657060544E-05" iyz="-3.54535595222186E-07" izz="1.92268280200472E-06" />
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/rs_232_port.STL"/>
+        <mesh filename="package://asv_description/meshes/electronics.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/electronics.STL" />
+      </geometry>
+    </collision>
   </link>
-  <joint name="mount_to_port" type="fixed">
-    <origin rpy="-1.5708 0 0" xyz="0 0.0134 0.13225"/>
-    <parent link="mount"/>
-    <child link="rs_232_port"/>
-    <axis xyz="0 0 0"/>
+  <joint name="mount_electronics" type="fixed">
+    <origin xyz="-0.058 0.003 -0.032" rpy="0 0 0" />
+    <parent link="mount" />
+    <child link="electronics" />
+    <axis xyz="0 0 0" />
   </joint>
-  <link name="status_board">
+  <link name="rs232">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.00056781 0.0042824 0.02751"/>
-      <mass value="0.13407"/>
-      <inertia ixx="6.9707E-07" ixy="4.0982E-08" ixz="5.6997E-08" iyy="4.6531E-07" iyz="-3.2949E-07" izz="2.4594E-07"/>
+      <origin xyz="6.91084563742006E-07 0.000150081993191678 -0.00629305915730355" rpy="0 0 0" />
+      <mass value="0.00200018013952998" />
+      <inertia ixx="3.12591866027674E-08" ixy="-1.03041254353452E-11" ixz="-2.35364197666885E-11" iyy="1.26619962698989E-07" iyz="4.11715868936075E-10" izz="1.26440243946498E-07" />
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(arg path)/status_board.STL"/>
+        <mesh filename="package://asv_description/meshes/rs232.STL" />
       </geometry>
-      <xacro:insert_block name="fiber"/>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
     </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/rs232.STL" />
+      </geometry>
+    </collision>
   </link>
-  <joint name="mount_to_status_board" type="fixed">
-    <origin rpy="0 0 0" xyz="-0.058 0.003 -0.032"/>
-    <parent link="mount"/>
-    <child link="status_board"/>
-    <axis xyz="0 0 0"/>
+  <joint name="mount_to_rs232" type="fixed">
+    <origin xyz="0 0.0134 0.13225" rpy="-1.5708 0 0" />
+    <parent link="mount" />
+    <child link="rs232" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="battery_1">
+    <inertial>
+      <origin xyz="0 0.0185 2.77555756156289E-17" rpy="0 0 0" />
+      <mass value="0.492100000000001" />
+      <inertia ixx="0.000257081241666667" ixy="-2.1678844206946E-19" ixz="4.59489782040709E-19" iyy="0.00168134166666667" iyz="1.49077798716757E-19" izz="0.00153654124166667" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/battery_1.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/battery_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="hull_to_battery_1" type="fixed">
+    <origin xyz="0 0.038 0.49893" rpy="1.5708 0 0" />
+    <parent link="middle_hull" />
+    <child link="battery_1" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="battery_2">
+    <inertial>
+      <origin xyz="0 0.0185 2.77555756156289E-17" rpy="0 0 0" />
+      <mass value="0.492100000000001" />
+      <inertia ixx="0.000257081241666667" ixy="-2.06160681448933E-19" ixz="4.58018745793424E-19" iyy="0.00168134166666667" iyz="1.62630325872826E-19" izz="0.00153654124166667" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/battery_2.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://asv_description/meshes/battery_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="hull_to_battery_2" type="fixed">
+    <origin xyz="0 0.038 0.46193" rpy="1.5708 0 0" />
+    <parent link="middle_hull" />
+    <child link="battery_2" />
+    <axis xyz="0 0 0" />
   </joint>
 </robot>
