@@ -3,7 +3,7 @@
 	<xacro:property name="PI" value="3.14159265359"/>
 	<xacro:property name="fiber">
 		<material name="">
-			<color rgba="0.79216 0.81961 0.93333 1"/>
+			<color rgba="0.11 0.11 0.11 1"/>
 		</material>
 	</xacro:property>
 	<xacro:arg default="package://asv_description/meshes" name="path"/>
