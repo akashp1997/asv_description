@@ -1,45 +1,44 @@
 <?xml version="1.0"?>
 <robot name="asv_description" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find asv_description)/urdf/common_properties.xacro"/>
-  <link name="base_footprint">
-    <inertial>
-      <mass value="0.0001"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
-    </inertial>
-    <visual>
+  <link name="base_link">
+    <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.001 0.001 0.001"/>
+        <box size="5 5 0.4" />
       </geometry>
-    </visual>
+      <!--<contact_coefficients mu="0.1" kp="0.2" kd="0.5" />-->
+    </collision>
   </link>
-  <joint name="base_footprint_joint" type="fixed">
-    <origin rpy="${PI/2} 0 ${-PI/2}" xyz="0 0 0.75"/>
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
+
+  <joint name="virtual_joint" type="fixed">
+    <origin xyz="0 0 2" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="base_hull"/>
   </joint>
-  <link name="base_link">
+
+  <link name="base_hull">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="8.3305"/>
+      <mass value="20.3305"/>
       <inertia ixx="0.48818" ixy="-1.0031E-06" ixz="-0.00052597" iyy="0.77995" iyz="0.060345" izz="0.40032"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/base_link.STL"/>
+        <mesh filename="package://asv_description/meshes/base_link.dae"/>
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://asv_description/meshes/base_link.STL"/>
+        <mesh filename="package://asv_description/meshes/base_link.dae"/>
+        <!--<box size="0.1 0.1 0.1" />-->
       </geometry>
+      <!--<contact_coefficients mu="0.1" kp="0.2" kd="0.5" />-->
     </collision>
   </link>
-  <link name="thruster_left">
+  <!--<link name="thruster_left">
     <inertial>
       <origin xyz="-5.6771E-05 0.0040313 0.0046012" rpy="0 0 0" />
       <mass value="0.344"/>
@@ -52,16 +51,10 @@
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://asv_description/meshes/thruster_left.STL"/>
-      </geometry>
-    </collision>
   </link>
   <joint name="body_to_thruster_left" type="fixed">
     <origin xyz="-0.36142 -0.26516 0.17933" rpy="0.13754 -0.00034105 -4.7207E-05" />
-    <parent link="base_link"/>
+    <parent link="base_hull"/>
     <child link="thruster_left"/>
     <axis xyz="0 0 0"/>
   </joint>
@@ -78,16 +71,10 @@
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://asv_description/meshes/thruster_right.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="body_to_thruster_right" type="fixed">
     <origin xyz="0.36046 -0.21222 0.20053" rpy="-1.5683 1.4333 1.5733" />
-    <parent link="base_link"/>
+    <parent link="base_hull"/>
     <child link="thruster_right"/>
     <axis xyz="0 0 0"/>
   </joint>
@@ -104,16 +91,10 @@
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/top_body.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="base_to_top_body" type="fixed">
     <origin xyz="-0.00047785 0.0019807 -0.052277" rpy="0.13754 0 0" />
-    <parent link="base_link" />
+    <parent link="base_hull" />
     <child link="top_body" />
     <axis xyz="0 0 0" />
   </joint>
@@ -130,12 +111,6 @@
       </geometry>
       <xacro:insert_block name="fiber"/>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/top_cover.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="top_body_to_cover" type="fixed">
     <origin xyz="0.00059952 0.19104 0.1763" rpy="-1.5708 0 0" />
@@ -158,12 +133,6 @@
         <color rgba="1 1 1 0.875" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/sensor_pod.STL" />
-      </geometry>
-    </collision>
   </link>
     <joint name="top_to_sensor_pod" type="fixed">
     <origin xyz="-0.0605 0.2547 -0.47015" rpy="0 1.5708 0" />
@@ -182,16 +151,10 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <!-- Origin of this mesh is the focal point of the LIDAR. -->
-          <mesh filename="package://lms1xx/meshes/sick-lms1xx.dae" />
+          <! Origin of this mesh is the focal point of the LIDAR. -->
+          <!--<mesh filename="package://lms1xx/meshes/sick-lms1xx.dae" />
         </geometry>
       </visual>
-      <collision>
-        <origin xyz="0 0 -0.05" rpy="0 0 0" />
-        <geometry>
-          <box size="0.105 0.1 0.1" />
-        </geometry>
-      </collision>
   </link>
   <joint name="pod_to_lidar" type="fixed">
     <origin xyz="0.12796 0.027079 0.0615" rpy="-0.029295 -1.5706 3.0041" />
@@ -215,12 +178,6 @@
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/garmin.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="top_to_garmin" type="fixed">
     <origin xyz="-0.098919 0.095841 0.0605" rpy="0 -0.25896 3.7327E-16" />
@@ -243,12 +200,6 @@
         <color rgba="0.0196078431372549 0.0196078431372549 0.0196078431372549 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/camera.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="pod_to_camera" type="fixed">
     <origin xyz="0.010199 0.2099 0.060138" rpy="-0.024936 1.5506 1.7851E-14" />
@@ -272,16 +223,10 @@
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/middle_hull.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="base_to_middle_hull" type="fixed">
     <origin xyz="0.0001217 -0.038509 -0.098623" rpy="0.13754 0 0" />
-    <parent link="base_link" />
+    <parent link="base_hull" />
     <child link="middle_hull" />
     <axis xyz="0 0 0" />
   </joint>
@@ -300,12 +245,6 @@
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/mount.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="hull_to_mount" type="fixed">
     <origin xyz="0 0.003 0.23093" rpy="-1.9429E-16 0 0" />
@@ -329,12 +268,6 @@
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/electronics.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="mount_electronics" type="fixed">
     <origin xyz="-0.058 0.003 -0.032" rpy="0 0 0" />
@@ -357,12 +290,6 @@
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/rs232.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="mount_to_rs232" type="fixed">
     <origin xyz="0 0.0134 0.13225" rpy="-1.5708 0 0" />
@@ -385,12 +312,6 @@
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/battery_1.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="hull_to_battery_1" type="fixed">
     <origin xyz="0 0.038 0.49893" rpy="1.5708 0 0" />
@@ -413,17 +334,11 @@
         <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://asv_description/meshes/battery_2.STL" />
-      </geometry>
-    </collision>
   </link>
   <joint name="hull_to_battery_2" type="fixed">
     <origin xyz="0 0.038 0.46193" rpy="1.5708 0 0" />
     <parent link="middle_hull" />
     <child link="battery_2" />
     <axis xyz="0 0 0" />
-  </joint>
+  </joint>-->
 </robot>
