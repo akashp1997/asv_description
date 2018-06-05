@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- Load the URDF into the ROS Parameter Server -->
+  	<param command="$(find xacro)/xacro $(find asv_description)/urdf/asv_base.xacro --inorder" name="robot_description"/>
+	
+	<!--Joint And Robot State Publishers to give TF of all links-->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+		<param name="use_tf_static" value="false" />
+	</node>
+	
+	<!--<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>-->
+
+</launch>

@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <!-- Various useful properties such as constants and materials -->
 <robot name="xacro_properties" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:property name="PI" value="3.14159265359"/>
